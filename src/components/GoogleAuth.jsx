@@ -2,11 +2,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser, setAuth } from '../context/store';
 import { jwtDecode } from 'jwt-decode';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
-import { Button, Box } from '@mui/material';
+import { Button, Box, Typography, useMediaQuery, useTheme } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout'; // Import logout icon
 
 const GoogleAuth = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Detect mobile screens
 
     const handleSuccess = (response) => {
         const decodedUser = jwtDecode(response.credential);
@@ -20,20 +23,47 @@ const GoogleAuth = () => {
     };
 
     return (
-        <div >
+        <div>
             {user.authenticated ? (
-                <>
-                <Box sx={{margin:2}}>
-                    <p>Welcome, {user.name}!</p>
-                    <Button variant="contained" color="secondary" onClick={handleLogout}>
-                        Logout
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: isMobile ? 'column' : 'row', // Stack vertically on mobile
+                        alignItems: 'center',
+                        gap: 2,
+                    }}
+                >
+                   
+
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={handleLogout}
+                        sx={{
+                            width: isMobile ? '50px' : 'auto',
+                            fontSize: isMobile ? '8px' : '14px', 
+                            padding: isMobile ? '4px 8px' : '6px 16px', 
+                            minWidth: 'unset', 
+                        }}
+                    >
+                        {isMobile ? <LogoutIcon fontSize="small" /> : 'Logout'} {/* Show icon on mobile */}
                     </Button>
-                  </Box>
-                </>
+                </Box>
             ) : (
-              <Box sx={{ display: 'flex', justifySelf: 'center', gap: 2, marginTop: 2 }}>
-                <GoogleLogin width='500px' onSuccess={handleSuccess} onError={() => console.log('Login Failed')} />
-              </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        width: isMobile ? '100%' : 'auto', // Full width on mobile
+                    }}
+                >
+                    <GoogleLogin
+                        onSuccess={handleSuccess}
+                        onError={() => console.log('Login Failed')}
+                        size="medium" // Adjust button size
+                        width={isMobile ? '100%' : '150px'} // Full width on mobile
+                    />
+                </Box>
             )}
         </div>
     );

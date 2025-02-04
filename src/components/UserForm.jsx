@@ -1,92 +1,85 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../context/store";
+import { setUser } from "../context/store"; 
 import { TextField, Button, Box, Typography } from "@mui/material";
-
 
 const UserForm = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state)=>state.user);
-  const [ formData, setformData ] = useState(user);
+  const user = useSelector((state) => state.user);
+  const [formData, setFormData] = useState(user);
 
-
-  useEffect(()=>{
-    const handleBeforeUnload = (event)=>{
-      if(JSON.stringify(user) !== JSON.stringify(formData)){
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (JSON.stringify(user) !== JSON.stringify(formData)) {
         event.preventDefault();
-        event.returnValue= '';
+        event.returnValue = '';
       }
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return ()=> window.removeEventListener('beforeunload', handleBeforeUnload)
-  },[user,formData]);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [user, formData]);
 
-
-  const handelChange = (e)=>{
-    setformData({...formData, [e.target.name]:[e.target.value]});
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handelSubmit = () => {
-    const updateData = {...formData, id: Date.now().toString() };
+  const handleSubmit = () => {
+    const updatedData = { ...formData, id: Date.now().toString() };
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+    const updatedUsers = [...existingUsers, updatedData];
 
-    const existingUser = JSON.parse(localStorage.getItem('users')) || [];
+    dispatch(setUser(updatedData));
+    setFormData(updatedData);
 
-    const updateUsers = [...existingUser, updateData];
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+    localStorage.setItem('latestUser', JSON.stringify(updatedData));
 
-    dispatch(setUser(updateData));
-
-    setformData(updateData);
-    
-    localStorage.setItem('users',JSON.stringify(updateUsers));
-
-    console.log(updateUsers)
-    alert(`Form Data Saved Sucessfully`)
+    alert('Form Data Saved Successfully');
   };
 
   return (
-    <>
-    <Box sx={{ padding:2 }}>
+    <Box sx={{ p:2 , m:2 }}>
       <Typography variant="h5" gutterBottom>User Form</Typography>
       <TextField
         label='Name'
         name='name'
-        variant="outlined"
-        margin='normal'
+        variant="standard"
+        // margin='normal'
         fullWidth
-        value={formData.name}
-        onChange={handelChange}
+        padding="normal"
+        value={formData.name || ''}
+        onChange={handleChange}
       />
       <TextField
         label='Address'
         name='address'
-        variant="outlined"
+        variant="standard"
         margin="normal"
         fullWidth
-        value={formData.adress}
-        onChange={handelChange}
+        value={formData.address || ''}
+        onChange={handleChange}
       />
       <TextField
         label='Email'
         name="email"
         fullWidth
         margin="normal"
-        variant="outlined"
-        value={formData.email}
-        onChange={handelChange}
+        variant="standard"
+        value={formData.email || ''}
+        onChange={handleChange}
       />
       <TextField
         label='Phone'
         name="phone"
-        value={formData.phone}
-        onChange={handelChange}
-        variant="outlined"
+        value={formData.phone || ''}
+        onChange={handleChange}
+        variant="standard"
         margin="normal"
         fullWidth
       />
-      <Button variant="contained" color="primary" onClick={handelSubmit} sx={{marginTop:2}}>Save</Button>
+      <Button variant="contained" color="primary" onClick={handleSubmit} sx={{ marginTop: 2 }}>Save</Button>
     </Box>
-    </>
   );
 };
 
-export default UserForm
+export default UserForm;
