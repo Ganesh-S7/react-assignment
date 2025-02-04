@@ -26,6 +26,12 @@ const userSlice = createSlice({
         setAuth:(state, action)=>{
             state.authenticated = action.payload;
         },
+        logout: (state) => {
+            state.name = '';
+            state.email = '';
+            state.id = '';
+            state.authenticated = false;
+        },
     },
 });
 
@@ -36,7 +42,7 @@ const store = configureStore({
     },
 });
 
-export const { setAuth, setUser } = userSlice.actions;
+export const { setUser, setAuth, logout } = userSlice.actions;
 export const { increment, decrement, reset } = counterSlice.actions;
 
 export default store;

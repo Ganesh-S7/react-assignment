@@ -13,8 +13,8 @@ const Counter = () => {
     });
 
     return (
-        <animated.div style={background}>
-            <Box sx={{ padding: 2, textAlign: 'center' }}>
+        <animated.div style={background} sx={{borderRadius:3}}>
+            <Box sx={{ padding: 2, textAlign: 'center', minHeight:'385px', alignContent:"center" }}>
                 <Typography variant="h4" gutterBottom>
                     Counter
                 </Typography>
