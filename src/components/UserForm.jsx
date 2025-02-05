@@ -38,7 +38,7 @@ const UserForm = () => {
   };
 
   return (
-    <Box sx={{ p:2 , m:2 }}>
+    <Box sx={{ p:2 , m:2 }} >
       <Typography variant="h5" gutterBottom>User Form</Typography>
       <TextField
         label='Name'

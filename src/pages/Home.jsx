@@ -23,7 +23,7 @@ import Counter from '../components/Counter';
 import UserForm from '../components/UserForm';
 import RichTextEditorComponent from '../components/RichTextEditor';
 import { useNavigate } from 'react-router-dom';
-import { animated, useSpring, useTransition } from '@react-spring/web';
+import { animated, useSpring } from '@react-spring/web';
 
 const Home = () => {
     const theme = useTheme();

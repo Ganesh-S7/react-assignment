@@ -27,6 +27,7 @@ const Counter = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}
+                
             >
                 {/* Counter Title */}
                 <Typography variant={isMobile ? 'h6' : 'h4'} gutterBottom>
