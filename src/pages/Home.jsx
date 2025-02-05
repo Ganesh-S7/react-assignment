@@ -34,7 +34,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     const handleSignIn = () => {
-        authenticated ? navigate('/dashboard') : alert('Please sign in to access the dashboard.');
+        authenticated ? navigate('/dashboard') : alert(`Please sign in to access the dashboard.`);
     };
 
     const toggleDrawer = (open) => (event) => {
@@ -92,7 +92,7 @@ const Home = () => {
                             </IconButton>
                         )}
 
-                        {/* App Title */}
+                        {/*Title */}
                         <Typography variant="h6" sx={{ flexGrow: 1 }} fontSize={isMobile ? '12px' : 'normal'}>
                             Hello, {authenticated ? userName : 'User'}
                         </Typography>

@@ -1,9 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import DashboardCharts from './pages/DashboardCharts';
-// import Counter from './components/Counter';
-// import UserForm from './components/UserForm';
-// import RichTextEditorComponent from './components/RichTextEditor';
 import PrivateRoute from './components/PrivateRoute';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -13,7 +10,6 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<Home />} />
-            
                     <Route element={<PrivateRoute />}>
                         <Route path="/dashboard" element={<DashboardCharts />} />
                     </Route>

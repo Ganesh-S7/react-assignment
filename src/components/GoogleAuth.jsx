@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser, setAuth } from '../context/store';
 import { jwtDecode } from 'jwt-decode';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
-import { Button, Box, Typography, useMediaQuery, useTheme } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout'; // Import logout icon
+import { Button, Box, useMediaQuery, useTheme } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout'; 
 
 const GoogleAuth = () => {
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const GoogleAuth = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        flexDirection: isMobile ? 'column' : 'row', // Stack vertically on mobile
+                        flexDirection: isMobile ? 'column' : 'row', 
                         alignItems: 'center',
                         gap: 2,
                     }}
@@ -46,7 +46,7 @@ const GoogleAuth = () => {
                             minWidth: 'unset', 
                         }}
                     >
-                        {isMobile ? <LogoutIcon fontSize="small" /> : 'Logout'} {/* Show icon on mobile */}
+                        {isMobile ? <LogoutIcon fontSize="small" /> : 'Logout'} 
                     </Button>
                 </Box>
             ) : (
@@ -54,14 +54,14 @@ const GoogleAuth = () => {
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        width: isMobile ? '100%' : 'auto', // Full width on mobile
+                        width: isMobile ? '100%' : 'auto', 
                     }}
                 >
                     <GoogleLogin
                         onSuccess={handleSuccess}
                         onError={() => console.log('Login Failed')}
-                        size="medium" // Adjust button size
-                        width={isMobile ? '100%' : '150px'} // Full width on mobile
+                        size="medium"
+                        width={isMobile ? '100%' : '150px'} 
                     />
                 </Box>
             )}
